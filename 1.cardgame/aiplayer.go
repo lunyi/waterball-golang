@@ -27,14 +27,14 @@ func (a *AIPlayer) SelectCard() *Card {
 		if ifExchange == 0 {
 			exchangees := a.Showdown.GetPlayers()
 			for i, player := range exchangees {
-				if player.Index == a.Index {
+				if player.GetIndex() == a.Index {
 					exchangees = append(exchangees[:i], exchangees[i+1:]...)
 					break
 				}
 			}
 
 			exchangee := exchangees[a.Random.Intn(len(exchangees))]
-			a.ExchangeHand = NewExchangeHand(a.BasePlayer, &exchangee)
+			a.ExchangeHand = NewExchangeHand(a.BasePlayer, exchangee.GetBasePlayer())
 		}
 	} else {
 		a.ExchangeHand.CountDown()

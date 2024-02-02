@@ -10,11 +10,11 @@ type Showdown struct {
 	MapSuit    map[Suit]string
 	MapRank    map[Rank]string
 	NumOfRanks int
-	Deck       Deck
-	Players    []BasePlayer
+	Deck       *Deck
+	Players    []IPlayer
 }
 
-func NewShowdown(deck Deck, players []BasePlayer) *Showdown {
+func NewShowdown(deck *Deck, players []IPlayer) *Showdown {
 	mapSuit := map[Suit]string{
 		Heart:   "H",
 		Diamond: "D",
@@ -47,7 +47,7 @@ func NewShowdown(deck Deck, players []BasePlayer) *Showdown {
 	}
 }
 
-func (s *Showdown) GetPlayers() []BasePlayer {
+func (s *Showdown) GetPlayers() []IPlayer {
 	return s.Players
 }
 
@@ -64,8 +64,8 @@ func (s *Showdown) runAllRounds() {
 		rounds := make([]Round, 0)
 
 		for _, player := range s.Players {
-			fmt.Printf("%s\n", player.Name)
-			cards := player.Hand.ShowCards()
+			fmt.Printf("%s\n", player.GetName())
+			cards := player.ShowCards()
 
 			for _, card := range cards {
 				fmt.Printf(" %s%s ", s.MapRank[card.Rank], s.MapSuit[card.Suit])
@@ -75,7 +75,7 @@ func (s *Showdown) runAllRounds() {
 
 			if selectedCard != nil {
 				fmt.Printf(" ==> %s%s\n", s.MapRank[selectedCard.Rank], s.MapSuit[selectedCard.Suit])
-				rounds = append(rounds, Round{Player: player, Card: selectedCard})
+				rounds = append(rounds, Round{Player: player, Card: *selectedCard})
 			}
 		}
 

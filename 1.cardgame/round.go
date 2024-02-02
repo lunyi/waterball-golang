@@ -2,10 +2,10 @@ package main
 
 type Round struct {
 	Card   Card
-	Player Player
+	Player IPlayer
 }
 
-func NewRound(card Card, player Player) *Round {
+func NewRound(card Card, player IPlayer) *Round {
 	return &Round{
 		Card:   card,
 		Player: player,

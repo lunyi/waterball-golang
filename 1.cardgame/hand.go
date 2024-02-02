@@ -12,7 +12,7 @@ func (hand *Hand) SelectCard(index int) *Card {
 	if index == 0 {
 		return nil
 	}
-	card := hand.Cards[index]
+	card := hand.Cards[index-1]
 	hand.Cards = hand.Cards[:len(hand.Cards)-1]
 	return card
 }

@@ -37,7 +37,7 @@ func (h *HumanPlayer) SelectCard() *Card {
 		playerIndex, err := strconv.Atoi(strings.TrimSpace(input))
 		if err == nil && playerIndex != h.Index && playerIndex >= 1 && playerIndex <= 4 {
 			exchangee := h.Showdown.GetPlayers()[playerIndex-1]
-			h.ExchangeHand = NewExchangeHand(h.BasePlayer, &exchangee)
+			h.ExchangeHand = NewExchangeHand(h.BasePlayer, exchangee.GetBasePlayer())
 		} else {
 			fmt.Println("Invalid parameter")
 		}

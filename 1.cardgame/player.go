@@ -7,10 +7,14 @@ import (
 type IPlayer interface {
 	SelectCard() *Card
 	Naming()
-	AddHandCard(card Card)
+	AddHandCard(card *Card)
 	AddPoint()
 	GetPoint() int
 	SetShowdown(showdown *Showdown)
+	ShowCards() []*Card
+	GetName() string
+	GetIndex() int
+	GetBasePlayer() *BasePlayer
 }
 
 type BasePlayer struct {
@@ -36,7 +40,19 @@ func (p *BasePlayer) GetIndex() int {
 	return p.Index
 }
 
-func (p *BasePlayer) SetShowdown(showdown *Showdown) int {
+func (p *BasePlayer) GetName() string {
+	return p.Name
+}
+
+func (p *BasePlayer) GetBasePlayer() *BasePlayer {
+	return p
+}
+
+func (p *BasePlayer) ShowCards() []*Card {
+	return p.Hand.ShowCards()
+}
+
+func (p *BasePlayer) SetShowdown(showdown *Showdown) {
 	p.Showdown = showdown
 }
 
@@ -52,15 +68,15 @@ func (p *BasePlayer) AddPoint() {
 	p.Point++
 }
 
-func GetFinalWinner(players []BasePlayer) ([]string, int) {
+func GetFinalWinner(players []IPlayer) ([]string, int) {
 	var winnerNames []string
 	maxPoint := 0
 	for _, player := range players {
 		if player.GetPoint() > maxPoint {
 			maxPoint = player.GetPoint()
-			winnerNames = []string{player.Name}
+			winnerNames = []string{player.GetName()}
 		} else if player.GetPoint() == maxPoint {
-			winnerNames = append(winnerNames, player.Name)
+			winnerNames = append(winnerNames, player.GetName())
 		}
 	}
 
