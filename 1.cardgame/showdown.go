@@ -15,32 +15,7 @@ type Showdown struct {
 }
 
 func NewShowdown(deck *Deck, players []IPlayer) *Showdown {
-	mapSuit := map[Suit]string{
-		Heart:   "H",
-		Diamond: "D",
-		Spade:   "S",
-		Club:    "C",
-	}
-
-	mapRank := map[Rank]string{
-		Ace:   "A",
-		Two:   "2",
-		Three: "3",
-		Four:  "4",
-		Five:  "5",
-		Six:   "6",
-		Seven: "7",
-		Eight: "8",
-		Nine:  "9",
-		Ten:   "X",
-		Jack:  "J",
-		Queen: "Q",
-		King:  "K",
-	}
-
 	return &Showdown{
-		MapSuit:    mapSuit,
-		MapRank:    mapRank,
 		NumOfRanks: 13,
 		Deck:       deck,
 		Players:    players,
